@@ -145,6 +145,16 @@ public class Recipe {
     }
   }
 
+  public void deleteTag(int tag_id){
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "DELETE FROM recipes_tags WHERE tag_id=:tag_id AND recipe_id=:recipe_id;";
+      con.createQuery(sql)
+        .addParameter("tag_id", tag_id)
+        .addParameter("recipe_id", this.getId())
+        .executeUpdate();
+    }
+  }
+
   public void addIngredient(String ingredient) {
     Integer ingredient_id;
     try(Connection con = DB.sql2o.open()) {

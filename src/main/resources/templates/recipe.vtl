@@ -3,7 +3,9 @@
 <h5>Ingredients:</h5>
 <ul>
   #foreach ($ingredient in $recipe.getIngredients())
-    <li><a href="/ingredients/$ingredient.getId()">$ingredient.getName()</a></li>
+    <li>
+      <a href="/ingredients/$ingredient.getId()">$ingredient.getName()</a>
+    </li>
   #end
 </ul>
 <p>
@@ -13,6 +15,7 @@
 <ul>
   #foreach ($tag in $recipe.getTags())
     <li><a href="/tags/$tag.getId()">$tag.getName()</a></li>
+    <a href="/deleteTag/$tag.getId()/recipe/$recipe.getId()">Remove this tag</a>
   #end
 </ul>
 
@@ -25,4 +28,28 @@
     <input type="hidden" name="recipe-id" value="$recipe.getId()">
   </div>
   <button type="submit" class="btn btn-primary" id="new-tag-submit">Submit</button>
+</form>
+
+<h4>Edit Name of Recipe</h4>
+<form action="/editRecipeName" method="post">
+  <div class="form-group">
+    <label for="edit-name">Edit Name</label>
+    <input type="text" name="edit-name" class="form-control" id="edit-name">
+    <input type="hidden" name="recipe-id" value="$recipe.getId()">
+  </div>
+  <button type="submit" class="btn btn-primary" id="edit-name-submit">Submit</button>
+</form>
+
+<h4>Edit Instructions of Recipe</h4>
+<form action="/editRecipeInstructions" method="post">
+  <div class="form-group">
+    <label for="edit-instructions">Edit instructions</label>
+    <input type="text" name="edit-instructions" class="form-control" id="edit-instructions">
+    <input type="hidden" name="recipe-id" value="$recipe.getId()">
+  </div>
+  <button type="submit" class="btn btn-primary" id="edit-instructions-submit">Submit</button>
+</form>
+
+<form class="" action="index.html" method="post">
+
 </form>

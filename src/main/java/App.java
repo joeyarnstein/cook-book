@@ -117,11 +117,43 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    get("/tags/:id/delete", (req, res) -> {
+      Tag tag = Tag.find(Integer.parseInt(req.params("id")));
+      tag.delete();
+      res.redirect("/tags");
+      return null;
+    });
+
     post("/ingredients/search", (req, res) -> {
       String query = req.queryParams("search-by-ingredient");
       Integer id = Ingredient.getIdByName(query);
       res.redirect("/ingredients/" + id);
       return null;
+    });
+
+    get("/deleteTag/:tag_id/recipe/:recipe_id", (req,res) -> {
+      int tagId = Integer.parseInt(req.params("tag_id"));
+      Recipe recipe = Recipe.find(Integer.parseInt(req.params("recipe_id")));
+      recipe.deleteTag(tagId);
+      res.redirect("/recipes/" + recipe.getId());
+      return null;
+    });
+
+    post("/editRecipeName", (req,res) -> {
+      String newName = req.queryParams("edit-name");
+      Recipe editableRecipe = Recipe.find(Integer.parseInt(req.queryParams("recipe-id")));
+      editableRecipe.updateName(newName);
+      res.redirect("/recipes/" + editableRecipe.getId());
+      return null;
+
+    });
+    post("/editRecipeInstructions", (req,res) -> {
+      String newInstructions = req.queryParams("edit-instructions");
+      Recipe editableRecipe = Recipe.find(Integer.parseInt(req.queryParams("recipe-id")));
+      editableRecipe.updateInstructions(newInstructions);
+      res.redirect("/recipes/" + editableRecipe.getId());
+      return null;
+
     });
 
   }

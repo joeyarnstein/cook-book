@@ -70,7 +70,13 @@ public class Ingredient {
       Integer id = con.createQuery(sql)
         .addParameter("name", name)
         .executeAndFetchFirst(Integer.class);
-      return id;
+        // if(id == null) {
+        //
+        //   // return something else here
+        //
+        // } else {
+          return id;
+        //}
     }
   }
 
