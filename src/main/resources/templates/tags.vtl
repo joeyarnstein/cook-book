@@ -1,0 +1,6 @@
+<h1>Tags</h1>
+<ul>
+  #foreach ($tag in $tags)
+    <li><a href="/tags/$tag.getId()">$tag.getName()</a></li>
+  #end
+</ul>

@@ -1,0 +1,23 @@
+<h1>Add a New Recipe</h1>
+<form action="/recipes" method="post">
+  <div class="form-group form-inline">
+    <label for="recipe-name">Name</label><br>
+    <input type="text" name="recipe-name" class="form-control" id="recipe-name">
+  </div>
+  <div class="form-group form-inline">
+    <label for="">Ingredients:</label><br>
+    <input type="text" name="ingredient1" id="ingredient1" class="form-control"><br>
+    <input type="text" name="ingredient2" id="ingredient2" class="form-control"><br>
+    <input type="text" name="ingredient3" id="ingredient3" class="form-control"><br>
+    <input type="text" name="ingredient4" id="ingredient4" class="form-control"><br>
+    <input type="text" name="ingredient5" id="ingredient5" class="form-control"><br>
+    <input type="text" name="ingredient6" id="ingredient6" class="form-control"><br>
+    <input type="text" name="ingredient7" id="ingredient7" class="form-control"><br>
+    <input type="text" name="ingredient8" id="ingredient8" class="form-control"><br>
+  </div>
+  <div class="form-group">
+    <label for="recipe-instructions">Instructions</label>
+    <textarea class="form-control" name="recipe-instructions" id="recipe-instructions" rows="5"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary" id="new-recipe-submit">Submit</button>
+</form>

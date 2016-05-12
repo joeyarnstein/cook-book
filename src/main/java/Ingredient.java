@@ -64,6 +64,16 @@ public class Ingredient {
     }
   }
 
+  public static Integer getIdByName(String name) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT id FROM ingredients WHERE name=:name;";
+      Integer id = con.createQuery(sql)
+        .addParameter("name", name)
+        .executeAndFetchFirst(Integer.class);
+      return id;
+    }
+  }
+
   public List<Recipe> getRecipes() {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT recipes.* FROM ingredients JOIN recipes_ingredients ON (ingredients.id = recipes_ingredients.ingredient_id) JOIN recipes ON (recipes_ingredients.recipe_id = recipes.id) WHERE ingredients.id =:id;";

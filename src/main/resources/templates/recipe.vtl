@@ -1,0 +1,28 @@
+<h1>$recipe.getName()</h1>
+
+<h5>Ingredients:</h5>
+<ul>
+  #foreach ($ingredient in $recipe.getIngredients())
+    <li><a href="/ingredients/$ingredient.getId()">$ingredient.getName()</a></li>
+  #end
+</ul>
+<p>
+  $recipe.getInstructions()
+</p>
+
+<ul>
+  #foreach ($tag in $recipe.getTags())
+    <li><a href="/tags/$tag.getId()">$tag.getName()</a></li>
+  #end
+</ul>
+
+<h1>Add Tags:</h1>
+<!-- <form action="/recipe/$recipe.getId()/addtag" method="post"> -->
+<form action="/addtag" method="post">
+  <div class="form-group">
+    <label for="tag-name">Tag</label>
+    <input type="text" name="tag-name" class="form-control" id="tag-name">
+    <input type="hidden" name="recipe-id" value="$recipe.getId()">
+  </div>
+  <button type="submit" class="btn btn-primary" id="new-tag-submit">Submit</button>
+</form>

@@ -104,20 +104,34 @@ public class Recipe {
 
   public void addTag(String tag) {
     Integer tag_id;
+    Integer relationshipAlreadyExistsChecker;
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT id FROM tags WHERE name=:name;";
       tag_id = con.createQuery(sql)
         .addParameter("name", tag)
         .executeAndFetchFirst(Integer.class);
     }
+
     if (tag_id != null) {
-      try(Connection con = DB.sql2o.open()) {
-        String sql = "INSERT INTO recipes_tags (tag_id, recipe_id) VALUES (:tag_id, :recipe_id);";
-        con.createQuery(sql)
+
+      try(Connection con = DB.sql2o.open()){
+        String sql = "SELECT id FROM recipes_tags WHERE tag_id=:tag_id AND recipe_id=:recipe_id;";
+        relationshipAlreadyExistsChecker = con.createQuery(sql)
           .addParameter("tag_id", tag_id)
-          .addParameter("recipe_id", this.getId())
-          .executeUpdate();
+          .addParameter("recipe_id", this.id)
+          .executeAndFetchFirst(Integer.class);
       }
+
+      if (relationshipAlreadyExistsChecker == null) {
+        try(Connection con = DB.sql2o.open()) {
+          String sql = "INSERT INTO recipes_tags (tag_id, recipe_id) VALUES (:tag_id, :recipe_id);";
+          con.createQuery(sql)
+            .addParameter("tag_id", tag_id)
+            .addParameter("recipe_id", this.getId())
+            .executeUpdate();
+        }
+      }
+
     } else {
       Tag newTag = new Tag(tag);
       newTag.save();
